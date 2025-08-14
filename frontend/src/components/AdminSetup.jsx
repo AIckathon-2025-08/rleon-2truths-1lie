@@ -56,24 +56,37 @@ const AdminSetup = () => {
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium mb-2" style={{color: 'var(--color-text)'}}>
                 Voting URL (Share with employees):
               </label>
-              <div className="input-field bg-gray-50">{result.votingUrl}</div>
+              <div className="input-field font-mono text-sm" style={{
+                backgroundColor: 'var(--color-surface)',
+                color: 'var(--color-text)',
+                border: '1px solid var(--color-border)'
+              }}>{result.votingUrl}</div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium mb-2" style={{color: 'var(--color-text)'}}>
                 Results URL (For live tracking):
               </label>
-              <div className="input-field bg-gray-50">{result.resultsUrl}</div>
+              <div className="input-field font-mono text-sm" style={{
+                backgroundColor: 'var(--color-surface)',
+                color: 'var(--color-text)',
+                border: '1px solid var(--color-border)'
+              }}>{result.resultsUrl}</div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium mb-2" style={{color: 'var(--color-text)'}}>
                 Admin Secret (Save this to reveal answer):
               </label>
-              <div className="input-field bg-gray-50 font-mono text-sm">
+              <div className="input-field font-mono text-sm" style={{
+                backgroundColor: 'var(--color-surface-elevated)',
+                color: 'var(--color-text)',
+                border: '2px solid var(--color-testio-blue)',
+                fontWeight: '600'
+              }}>
                 {result.adminSecret}
               </div>
             </div>
