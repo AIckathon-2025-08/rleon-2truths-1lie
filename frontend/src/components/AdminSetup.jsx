@@ -46,7 +46,18 @@ const AdminSetup = () => {
     setFormData({ ...formData, statements: newStatements });
   };
 
+  const [copied, setCopied] = useState(null);
+
+  const handleCopy = (text, field) => {
+    navigator.clipboard.writeText(text);
+    setCopied(field);
+    setTimeout(() => setCopied(null), 2000);
+  };
+
   if (result) {
+    const votingUrl = `${window.location.origin}${result.votingUrl}`;
+    const resultsUrl = `${window.location.origin}${result.resultsUrl}`;
+
     return (
       <div className="max-w-2xl mx-auto">
         <div className="card">
@@ -59,35 +70,57 @@ const AdminSetup = () => {
               <label className="block text-sm font-medium mb-2" style={{color: 'var(--color-text)'}}>
                 Voting URL (Share with employees):
               </label>
-              <div className="input-field font-mono text-sm" style={{
-                backgroundColor: 'var(--color-surface)',
-                color: 'var(--color-text)',
-                border: '1px solid var(--color-border)'
-              }}>{result.votingUrl}</div>
+              <div className="flex items-center space-x-2">
+                <a href={votingUrl} target="_blank" rel="noopener noreferrer" className="input-field font-mono text-sm truncate flex-grow" style={{
+                  backgroundColor: 'var(--color-surface)',
+                  color: 'var(--color-text)',
+                  border: '1px solid var(--color-border)',
+                  display: 'inline-block',
+                  padding: '0.5rem 0.75rem',
+                  textDecoration: 'none',
+                }}>{votingUrl}</a>
+                <button onClick={() => handleCopy(votingUrl, 'voting')} className="btn-secondary px-3 py-1 text-sm">
+                  {copied === 'voting' ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium mb-2" style={{color: 'var(--color-text)'}}>
                 Results URL (For live tracking):
               </label>
-              <div className="input-field font-mono text-sm" style={{
-                backgroundColor: 'var(--color-surface)',
-                color: 'var(--color-text)',
-                border: '1px solid var(--color-border)'
-              }}>{result.resultsUrl}</div>
+              <div className="flex items-center space-x-2">
+                <a href={resultsUrl} target="_blank" rel="noopener noreferrer" className="input-field font-mono text-sm truncate flex-grow" style={{
+                  backgroundColor: 'var(--color-surface)',
+                  color: 'var(--color-text)',
+                  border: '1px solid var(--color-border)',
+                  display: 'inline-block',
+                  padding: '0.5rem 0.75rem',
+                  textDecoration: 'none',
+                }}>{resultsUrl}</a>
+                <button onClick={() => handleCopy(resultsUrl, 'results')} className="btn-secondary px-3 py-1 text-sm">
+                  {copied === 'results' ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium mb-2" style={{color: 'var(--color-text)'}}>
                 Admin Secret (Save this to reveal answer):
               </label>
-              <div className="input-field font-mono text-sm" style={{
-                backgroundColor: 'var(--color-surface-elevated)',
-                color: 'var(--color-text)',
-                border: '2px solid var(--color-testio-blue)',
-                fontWeight: '600'
-              }}>
-                {result.adminSecret}
+              <div className="flex items-center space-x-2">
+                <div className="input-field font-mono text-sm flex-grow" style={{
+                  backgroundColor: 'var(--color-surface-elevated)',
+                  color: 'var(--color-text)',
+                  border: '2px solid var(--color-testio-blue)',
+                  fontWeight: '600',
+                  padding: '0.5rem 0.75rem',
+                }}>
+                  {result.adminSecret}
+                </div>
+                <button onClick={() => handleCopy(result.adminSecret, 'secret')} className="btn-secondary px-3 py-1 text-sm">
+                  {copied === 'secret' ? 'Copied!' : 'Copy'}
+                </button>
               </div>
             </div>
           </div>

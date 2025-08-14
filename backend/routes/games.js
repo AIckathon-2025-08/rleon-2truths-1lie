@@ -75,13 +75,11 @@ router.post('/', upload.single('photo'), async (req, res) => {
 
     const game = createGame(gameData);
 
-    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
-
     res.json({
       success: true,
       gameId: game.id,
-      votingUrl: `${frontendUrl}/vote/${game.id}`,
-      resultsUrl: `${frontendUrl}/results/${game.id}`,
+      votingUrl: `/vote/${game.id}`,
+      resultsUrl: `/results/${game.id}`,
       adminSecret: game.adminSecret,
     });
   } catch (error) {
