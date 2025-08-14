@@ -9,8 +9,10 @@ const VotingInterface = () => {
   const [loading, setLoading] = useState(true);
   const [voted, setVoted] = useState(false);
   const [selectedVote, setSelectedVote] = useState(null);
+  const [playerName, setPlayerName] = useState('');
+  const [nameSubmitted, setNameSubmitted] = useState(false);
   
-  const { votes, revealed, correctAnswer, connected, castVote } = useGameSocket(gameId);
+  const { votes, revealed, correctAnswer, connected, castVote } = useGameSocket(gameId, game?.votes);
   const api = new VotingAPI();
 
   useEffect(() => {
@@ -19,6 +21,14 @@ const VotingInterface = () => {
         const response = await api.getGame(gameId);
         if (response.success) {
           setGame(response.game);
+          
+          // Check for saved player name
+          const savedName = localStorage.getItem(`playerName_${gameId}`);
+          if (savedName) {
+            setPlayerName(savedName);
+            setNameSubmitted(true);
+          }
+          
           const sessionId = localStorage.getItem('sessionId');
           const hasVoted = localStorage.getItem(`voted_${gameId}`);
           if (hasVoted) {
@@ -36,10 +46,18 @@ const VotingInterface = () => {
     loadGame();
   }, [gameId]);
 
+  const handleNameSubmit = (e) => {
+    e.preventDefault();
+    if (playerName.trim()) {
+      localStorage.setItem(`playerName_${gameId}`, playerName.trim());
+      setNameSubmitted(true);
+    }
+  };
+
   const handleVote = (voteIndex) => {
     if (voted || revealed) return;
     
-    castVote(voteIndex);
+    castVote(voteIndex, playerName);
     setVoted(true);
     setSelectedVote(voteIndex);
     localStorage.setItem(`voted_${gameId}`, voteIndex.toString());
@@ -62,6 +80,46 @@ const VotingInterface = () => {
     );
   }
 
+  // Show name form if name not submitted yet
+  if (!nameSubmitted) {
+    return (
+      <div className="max-w-md mx-auto">
+        <div className="card">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-testio-blue mb-2">
+              Two Truths & A Lie
+            </h2>
+            <p className="text-gray-600">Enter your name to participate</p>
+          </div>
+          
+          <form onSubmit={handleNameSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Your Name
+              </label>
+              <input
+                type="text"
+                value={playerName}
+                onChange={(e) => setPlayerName(e.target.value)}
+                className="input-field w-full"
+                placeholder="Enter your name..."
+                required
+                autoFocus
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn-primary w-full"
+              disabled={!playerName.trim()}
+            >
+              Join Game
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-2xl mx-auto">
       <div className="card">
@@ -80,6 +138,9 @@ const VotingInterface = () => {
             <h3 className="text-xl font-semibold text-gray-800">
               {game.candidate.name}
             </h3>
+            <p className="text-sm text-gray-600">
+              Welcome, <span className="font-semibold text-testio-blue">{playerName}</span>!
+            </p>
           </div>
         </div>
 
@@ -105,14 +166,14 @@ const VotingInterface = () => {
               return (
                 <div
                   key={index}
-                  className={`relative p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                  className={`statement-card ${
                     revealed && isCorrectAnswer
-                      ? 'border-red-500 bg-red-50'
+                      ? 'statement-card-revealed-correct'
                       : isUserVote
-                      ? 'border-testio-blue bg-blue-50'
+                      ? 'statement-card-voted'
                       : voted || revealed
                       ? 'border-gray-200 bg-gray-50 cursor-not-allowed'
-                      : 'border-gray-200 hover:border-testio-teal hover:bg-teal-50'
+                      : 'statement-card-hover border-gray-200'
                   }`}
                   onClick={() => handleVote(index)}
                 >
@@ -153,10 +214,14 @@ const VotingInterface = () => {
           </div>
         </div>
 
-        <div className="text-center text-sm text-gray-500">
+        <div className="border-t border-gray-200 pt-4 mt-6">
           <div className="flex justify-between items-center">
-            <span>Connection: {connected ? '🟢 Live' : '🔴 Disconnected'}</span>
-            <span>Total votes: {votes[0] + votes[1] + votes[2]}</span>
+            <span className={`status-indicator ${connected ? 'status-live' : 'status-disconnected'}`}>
+              {connected ? '🟢 Live Updates' : '🔴 Disconnected'}
+            </span>
+            <span className="text-lg font-semibold text-testio-blue">
+              {votes[0] + votes[1] + votes[2]} votes cast
+            </span>
           </div>
         </div>
       </div>

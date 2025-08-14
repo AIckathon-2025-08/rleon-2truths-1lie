@@ -11,7 +11,7 @@ const LiveResults = () => {
   const [adminSecret, setAdminSecret] = useState('');
   const [showAdminControls, setShowAdminControls] = useState(false);
   
-  const { votes, revealed, correctAnswer, connected, revealAnswer } = useGameSocket(gameId);
+  const { votes, revealed, correctAnswer, connected, revealAnswer } = useGameSocket(gameId, game?.votes);
   const api = new VotingAPI();
 
   useEffect(() => {

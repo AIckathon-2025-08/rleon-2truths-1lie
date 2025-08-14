@@ -25,11 +25,16 @@ export const useSocket = () => {
   return { socket, connected };
 };
 
-export const useGameSocket = (gameId) => {
+export const useGameSocket = (gameId, initialVotes = { 0: 0, 1: 0, 2: 0 }) => {
   const { socket, connected } = useSocket();
-  const [votes, setVotes] = useState({ 0: 0, 1: 0, 2: 0 });
+  const [votes, setVotes] = useState(initialVotes);
   const [revealed, setRevealed] = useState(false);
   const [correctAnswer, setCorrectAnswer] = useState(null);
+
+  // Update votes when initialVotes changes
+  useEffect(() => {
+    setVotes(initialVotes);
+  }, [initialVotes]);
 
   useEffect(() => {
     if (!socket || !gameId) return;
@@ -56,7 +61,7 @@ export const useGameSocket = (gameId) => {
     };
   }, [socket, gameId]);
 
-  const castVote = (vote) => {
+  const castVote = (vote, playerName = null) => {
     if (!socket || !connected) return;
     
     const sessionId = localStorage.getItem('sessionId') || 
@@ -66,7 +71,7 @@ export const useGameSocket = (gameId) => {
                        return id;
                      })();
 
-    socket.emit('cast-vote', { gameId, vote, sessionId });
+    socket.emit('cast-vote', { gameId, vote, sessionId, playerName });
   };
 
   const revealAnswer = (adminSecret) => {

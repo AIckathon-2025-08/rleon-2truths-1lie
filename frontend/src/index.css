@@ -1,25 +1,58 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-testio-blue: #1E40AF;
+  --color-testio-teal: #0891B2;
+  --color-testio-gray: #6B7280;
+  --color-testio-white: #FFFFFF;
+}
 
 @layer components {
   .btn-primary {
-    @apply bg-testio-blue text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium;
+    @apply bg-testio-blue text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-all duration-200 font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5;
   }
   
   .btn-secondary {
-    @apply bg-testio-teal text-white px-4 py-2 rounded-md hover:bg-teal-700 transition-colors;
+    @apply bg-testio-teal text-white px-4 py-2 rounded-md hover:bg-teal-700 transition-all duration-200 shadow-sm hover:shadow-md;
   }
   
   .card {
-    @apply bg-white border border-gray-200 rounded-lg shadow-md p-6;
+    @apply bg-white border border-gray-200 rounded-xl shadow-lg p-8 backdrop-blur-sm;
   }
   
   .progress-bar {
-    @apply bg-testio-teal rounded-full transition-all duration-300;
+    @apply bg-gradient-to-r from-testio-teal to-testio-blue rounded-full transition-all duration-500 ease-out shadow-sm;
   }
   
   .input-field {
-    @apply border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-testio-blue;
+    @apply border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-testio-blue focus:border-transparent transition-all duration-200 shadow-sm;
+  }
+  
+  .statement-card {
+    @apply p-4 rounded-lg border-2 cursor-pointer transition-all duration-300 hover:shadow-md;
+  }
+  
+  .statement-card-voted {
+    @apply border-testio-blue bg-blue-50 shadow-md;
+  }
+  
+  .statement-card-revealed-correct {
+    @apply border-red-500 bg-red-50 shadow-lg;
+  }
+  
+  .statement-card-hover {
+    @apply border-testio-teal bg-teal-50 hover:border-testio-blue;
+  }
+  
+  .status-indicator {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .status-live {
+    @apply bg-green-100 text-green-800;
+  }
+  
+  .status-disconnected {
+    @apply bg-red-100 text-red-800;
   }
 }

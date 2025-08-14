@@ -1,144 +1,147 @@
-# Execute Product Requirement Prompt (PRP)
+# Execute Product Requirement Prompt (PRP) - Two Truths & A Lie Game
 
-Implement features using intelligent coordination that respects project architecture and provides consistent, high-quality outcomes.
+Implement features using intelligent coordination that respects the Two Truths & A Lie Game architecture and provides consistent, high-quality outcomes with Test IO branding.
 
 ## PRP File: $ARGUMENTS (from {{ WORKFLOW.ACTIVE_DIR }}/)
 
 ## 🎯 Intelligent Coordination Approach
 
-**Core Principle**: Default to coordination-aware implementation that respects architectural integration, component coordination, and context preservation. Let content and context drive agent selection, not user routing decisions.
+**Core Principle**: Default to coordination-aware implementation that respects real-time voting architecture, Socket.io integration, and Test IO brand consistency. Let content and context drive agent selection, not user routing decisions.
 
 ### Automatic Workflow Detection
 
 The framework intelligently analyzes your PRP content and context to provide appropriate coordination:
 
-- **File Pattern Analysis**: Detects which components are affected (services, data handling, UI, integration)
-- **Content Scope Analysis**: Understands feature complexity, architectural impact, and integration requirements
-- **Context Awareness**: Considers existing project state, active work, and component coordination needs
-- **Quality Requirements**: Automatically applies appropriate testing, documentation, and validation
+- **Component Pattern Analysis**: Detects which layers are affected (React frontend, Express backend, Socket.io real-time, UI components)
+- **Content Scope Analysis**: Understands feature complexity, real-time voting impact, and Test IO brand requirements
+- **Context Awareness**: Considers existing game state, active Socket.io connections, and component coordination needs
+- **Quality Requirements**: Automatically applies Playwright testing, Test IO brand compliance, and WebSocket validation
 
 ### Architecture-Centric Integration by Default
 
-All work assumes and preserves the project's foundational architecture:
-- **UTC Timestamps**: Consistent time coordination across all operations
-- **Component Integration**: Multi-component coordination and state preservation
-- **Data Preservation**: Established data handling patterns with change tracking
-- **Service Context Sharing**: Context preservation and coordination patterns
-- **State Management**: Interface and component consistency
+All work assumes and preserves the project's foundational Two Truths & A Lie architecture:
+- **Real-time Voting**: Socket.io WebSocket communication patterns for live vote updates
+- **Game State Management**: Session-based state with in-memory storage using Map/Object patterns
+- **Test IO Brand Compliance**: Professional blue (#1E40AF) and teal (#0891B2) color palette consistency
+- **React Component Architecture**: Functional components with hooks, modern JSX patterns
+- **WebSocket Event Handling**: Clear event naming conventions (vote-cast, results-update, game-start)
+- **Mobile-First Responsive**: TailwindCSS utility-first styling with professional layouts
 
 ## 🤖 Intelligent Agent Coordination
 
-Based on content analysis and architectural requirements, agents are automatically selected:
+Based on content analysis and Two Truths & A Lie architectural requirements, agents are automatically selected:
 
 ### Core Coordination Team
-- **developer**: Research-first implementation with architectural awareness
-- **tester**: Behavioral testing with integration validation
-- **refactor**: Safety-first improvements when file size or complexity triggers
-- **docs**: User-focused documentation when new features or APIs created
-- **task-coordinator**: Multi-phase orchestration for complex architectural changes
+- **developer**: Research-first implementation with Socket.io and React architectural awareness
+- **tester**: Playwright behavioral testing with WebSocket integration validation and Test IO brand compliance
+- **refactor**: Safety-first improvements when component size or Socket.io complexity triggers
+- **docs**: User-focused documentation when new voting features or admin APIs are created
+- **task-coordinator**: Multi-phase orchestration for complex real-time voting changes
 
 ### Smart Agent Selection Logic
 ```
 Content Analysis Results → Agent Selection:
 
-• Code implementation needed → developer (always)
-• UI changes detected → tester (behavioral + visual regression)
-• Files >500 lines → refactor (automatic safety trigger)
-• New user-facing features → docs (consideration prompt)
-• Architecture changes → task-coordinator (multi-phase orchestration)
-• Service integration work → specialized integration validation
-• Component coordination → enhanced coordination checks
+• React/Socket.io implementation needed → developer (always)
+• Voting UI changes detected → tester (Playwright + visual regression + Test IO brand validation)
+• Components >500 lines → refactor (automatic safety trigger)
+• New admin/voting features → docs (consideration prompt)
+• Real-time architecture changes → task-coordinator (multi-phase orchestration)
+• Socket.io integration work → specialized WebSocket validation
+• Game state coordination → enhanced real-time coordination checks
+• Test IO brand changes → visual validation with brand compliance testing
 ```
 
 ## 📋 Standard Execution Workflow
 
 ### Phase 1: Analysis & Planning (5-10 min)
-1. **Content Analysis**: Automatically detect scope, complexity, and integration requirements
-2. **Agent Selection**: Choose appropriate agent coordination based on detected needs
-3. **Research Context**: Leverage any pre-provided research or initiate MCP research as needed
-4. **Architecture Validation**: Ensure architectural approach and integration awareness
+1. **Content Analysis**: Automatically detect scope, complexity, and real-time voting integration requirements
+2. **Agent Selection**: Choose appropriate agent coordination based on React/Socket.io/Test IO needs
+3. **Research Context**: Leverage pre-provided research or initiate MCP research for voting patterns
+4. **Architecture Validation**: Ensure Socket.io WebSocket approach and React component integration awareness
 
 ### Phase 2: Implementation Coordination (Variable Duration)
-1. **Context-Rich Agent Handoffs**: Provide comprehensive context to selected agents
-2. **Quality Gate Monitoring**: Ensure standards are maintained throughout implementation
-3. **Integration Verification**: Validate that changes work within existing architecture
-4. **Progress Tracking**: Monitor implementation progress and coordinate between agents when needed
+1. **Context-Rich Agent Handoffs**: Provide comprehensive context including game state and Socket.io patterns
+2. **Quality Gate Monitoring**: Ensure Test IO brand standards and real-time voting standards are maintained
+3. **Integration Verification**: Validate changes work within existing React/Express/Socket.io architecture
+4. **Progress Tracking**: Monitor implementation progress and coordinate between frontend/backend agents when needed
 
 ### Phase 3: Quality Validation & Completion (10-15 min)
-1. **Comprehensive Testing**: Behavioral testing with integration point validation
-2. **Architecture Integration**: Ensure all components work together properly
-3. **Documentation Review**: Verify user-facing changes are properly documented
-4. **Final Quality Check**: Linting, type checking, and architectural compliance
+1. **Comprehensive Testing**: Playwright behavioral testing with WebSocket integration point validation
+2. **Architecture Integration**: Ensure React components and Socket.io events work together properly
+3. **Documentation Review**: Verify user-facing voting changes are properly documented
+4. **Final Quality Check**: ESLint, TypeScript validation, Test IO brand compliance, and Socket.io architectural compliance
 
 ## 🔧 Context-Aware Coordination Features
 
 ### Research Context Integration
-- **Pre-Research Utilization**: Use research context from PRP generation to avoid duplicate work
-- **Targeted MCP Research**: Additional research only when specific implementation details are needed
-- **Context Preservation**: Maintain research findings throughout implementation coordination
+- **Pre-Research Utilization**: Use research context from PRP generation for voting patterns and Socket.io best practices
+- **Targeted MCP Research**: Additional research only when specific real-time voting implementation details are needed
+- **Context Preservation**: Maintain research findings about WebSocket patterns throughout implementation coordination
 
 ### Architectural Awareness
-- **Integration Point Detection**: Automatically identify required integration work
-- **Component Coordination**: Ensure multi-component features work together seamlessly
-- **State Management**: Preserve and coordinate application state appropriately
-- **Service Dependencies**: Handle external service coordination and fallback scenarios
+- **Integration Point Detection**: Automatically identify required React/Express/Socket.io integration work
+- **Component Coordination**: Ensure voting components, admin interfaces, and results displays work together seamlessly
+- **Game State Management**: Preserve and coordinate voting session state appropriately across WebSocket connections
+- **Socket.io Dependencies**: Handle WebSocket connection coordination and graceful degradation scenarios
 
 ### Quality Integration
-- **Behavioral Testing Focus**: Test what the software does, not how it's implemented
-- **Integration Testing**: Verify components work together correctly
-- **Visual Validation**: Screenshot capture for UI changes (when tooling is available)
-- **Documentation Generation**: User-focused documentation for public features
+- **Behavioral Testing Focus**: Test voting flows, real-time updates, and admin workflows, not implementation details
+- **Integration Testing**: Verify React components and Socket.io events work together correctly
+- **Visual Validation**: Playwright screenshot capture for Test IO brand compliance and voting UI changes
+- **Documentation Generation**: User-focused documentation for admin setup and voting features
 
 ## 🚀 Advanced Coordination Scenarios
 
-### Complex Feature Implementation
-For multi-component features affecting 4+ files or requiring >8 hours of work:
-1. **task-coordinator** orchestrates multi-phase implementation
-2. **Phased approach**: Plan → Implement → Integrate → Validate
-3. **Quality gates**: Checkpoints at each phase with user approval
-4. **Context preservation**: Maintain architectural context across phases
+### Complex Voting Feature Implementation
+For multi-component voting features affecting 4+ files or requiring >8 hours of work:
+1. **task-coordinator** orchestrates multi-phase real-time voting implementation
+2. **Phased approach**: Plan → Implement Frontend → Implement Backend → Socket.io Integration → Validate
+3. **Quality gates**: Checkpoints at each phase with user approval and Playwright testing
+4. **Context preservation**: Maintain game state and WebSocket architectural context across phases
 
-### Architectural Modifications
-For changes affecting core architecture or integration patterns:
-1. **Architecture-first analysis**: Understand impact before implementation
-2. **Incremental approach**: Small, safe changes with validation at each step
-3. **Integration testing**: Comprehensive testing of integration points
-4. **Rollback planning**: Clear rollback strategy if integration issues arise
+### Real-time Architecture Modifications
+For changes affecting core Socket.io architecture or voting integration patterns:
+1. **Architecture-first analysis**: Understand WebSocket impact on existing game state before implementation
+2. **Incremental approach**: Small, safe changes with Socket.io validation at each step
+3. **Integration testing**: Comprehensive Playwright testing of voting integration points
+4. **Rollback planning**: Clear rollback strategy if WebSocket integration issues arise
 
-### Service Integration Work
-For external service integration or provider coordination:
-1. **Provider pattern analysis**: Use established service integration patterns
-2. **Fallback strategy**: Implement provider fallback and error handling
-3. **Context sharing**: Ensure service context is preserved appropriately
-4. **Integration testing**: Mock-based testing for external service behavior
+### Test IO Brand Integration Work
+For Test IO brand compliance or visual integration coordination:
+1. **Brand pattern analysis**: Use established Test IO visual integration patterns from brand reference
+2. **Fallback strategy**: Implement brand fallback and graceful visual degradation
+3. **Context sharing**: Ensure Test IO brand context is preserved across components
+4. **Visual testing**: Playwright-based testing for brand compliance and visual regression
 
 ## 📊 Success Criteria
 
 ### Functional Success
-- All specified features work as defined in the PRP
-- Integration points function correctly with existing architecture
-- Error scenarios are handled gracefully with appropriate user feedback
-- Performance meets established project standards
+- All specified voting features work as defined in the PRP
+- Socket.io WebSocket integration points function correctly with existing real-time architecture
+- Error scenarios are handled gracefully with appropriate user feedback and WebSocket reconnection
+- Performance meets established voting system standards with real-time responsiveness
 
 ### Architectural Success
-- Changes integrate seamlessly with existing component coordination patterns
-- Service integration follows established patterns and includes proper fallback
-- State management maintains consistency with existing architecture
-- UTC timestamp usage is consistent throughout (when time-based functionality is involved)
+- Changes integrate seamlessly with existing React component and Socket.io coordination patterns
+- WebSocket integration follows established voting patterns and includes proper connection fallback
+- Game state management maintains consistency with existing session-based architecture
+- Test IO brand compliance is consistent throughout all UI components
 
 ### Quality Success
-- All tests pass including new behavioral tests for implemented features
-- Code quality tools (linting, type checking) pass without warnings
-- File size limits are respected (500 lines for code, 1000 for tests)
-- Documentation is created for user-facing features
+- All Playwright tests pass including new behavioral tests for voting workflows
+- Code quality tools (ESLint, TypeScript) pass without warnings
+- File size limits are respected (500 lines for components, 1000 for tests)
+- Documentation is created for user-facing admin and voting features
+- Test IO brand visual compliance verified through Playwright screenshot testing
 
 ## 🎯 Completion
 
 Implementation is complete when:
-1. All PRP requirements are functionally implemented
-2. Architecture integration is verified working
-3. Quality gates pass (tests, linting, documentation)
-4. User acceptance criteria from PRP are met
-5. No regressions in existing functionality
+1. All PRP voting requirements are functionally implemented with real-time updates
+2. React/Express/Socket.io architecture integration is verified working
+3. Quality gates pass (Playwright tests, linting, Test IO brand compliance)
+4. User acceptance criteria from PRP are met for both admin and voting workflows
+5. No regressions in existing voting functionality or WebSocket connections
 
-**Implementation Philosophy**: Leverage intelligent coordination to deliver high-quality features that integrate seamlessly with existing architecture while maintaining project standards and patterns.
+**Implementation Philosophy**: Leverage intelligent coordination to deliver high-quality real-time voting features that integrate seamlessly with existing React/Socket.io architecture while maintaining Test IO brand standards and professional voting experience patterns.
