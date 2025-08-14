@@ -14,8 +14,32 @@ An interactive town hall game where employees vote on which statement they think
 ### Prerequisites
 - Node.js 18+
 - npm or yarn
+- **Just** (modern command runner) - *recommended for best dev experience*
 
-### Development Setup
+### Quick Setup with Just (Recommended)
+
+**Install Just**:
+```bash
+# macOS/Linux (curl method)
+curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to ~/bin
+export PATH="$HOME/bin:$PATH"
+
+# macOS (Homebrew)
+brew install just
+
+# Any platform (Rust)
+cargo install just
+```
+
+**Start Development**:
+```bash
+just setup      # Install all dependencies
+just dev        # Start both frontend + backend servers
+```
+
+See [`DEV-SETUP.md`](./DEV-SETUP.md) for complete Just commands and modern development workflow.
+
+### Traditional Setup (Alternative)
 
 ```bash
 # Install backend dependencies
@@ -106,6 +130,35 @@ npm run test:e2e
 
 ## 📝 Development Commands
 
+### Modern Workflow with Just (Recommended)
+```bash
+# Development
+just dev           # Start both frontend + backend
+just dev-frontend  # Frontend only (React + Vite)  
+just dev-backend   # Backend only (Node.js + Socket.io)
+
+# Quality Tools
+just format        # Prettier code formatting
+just lint          # ESLint code linting
+just audit         # Security vulnerability scanning
+just check         # Run all quality checks
+
+# Build & Test
+just build         # Production builds
+just test          # Run unit tests
+just test-e2e      # Playwright end-to-end tests
+
+# Utilities
+just clean         # Clean build artifacts
+just install       # Install all dependencies
+just setup         # Initial project setup
+
+# Competition Commands
+just demo          # Quick demo setup for judges
+just --list        # Show all available commands
+```
+
+### Traditional npm Commands (Alternative)
 ```bash
 # Backend
 npm run dev        # Development with nodemon
