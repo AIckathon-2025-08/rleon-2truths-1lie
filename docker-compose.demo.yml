@@ -1,0 +1,25 @@
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: "no"
+
+  backend:
+    build: ./backend
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    volumes:
+      - demo-uploads:/app/uploads
+    restart: "no"
+
+volumes:
+  demo-uploads:
+    driver: local
+
+networks:
+  default:
+    name: twotruths-demo

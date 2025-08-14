@@ -7,7 +7,7 @@ An interactive town hall game where employees vote on which statement they think
 - **Frontend**: React + TailwindCSS with Test IO branding
 - **Backend**: Node.js + Express + Socket.io for real-time voting
 - **Architecture**: Monorepo with Docker Compose deployment
-- **Status**: 50% complete - Backend fully implemented and tested, Frontend ready for development
+- **Status**: 90% complete - Backend tested, Frontend functional, Professional Docker setup complete
 
 ## 🚀 Quick Start
 
@@ -71,17 +71,25 @@ docker-compose up --build
 
 ```
 alckathon/
-├── backend/                # Node.js + Express + Socket.io ✅
-│   ├── server.js          # Main server with Socket.io
-│   ├── routes/            # REST API endpoints  
-│   ├── middleware/        # File upload handling
-│   ├── utils/             # Game state management
-│   └── uploads/           # Candidate photos
-├── frontend/              # React + TailwindCSS ✅
-├── PRPs/                  # Product Requirement Prompts
-├── WIREFRAMES.md          # UI design specifications
-├── CLAUDE.md              # Development instructions
-└── docker-compose.yml     # Deployment configuration
+├── backend/                    # Node.js + Express + Socket.io ✅
+│   ├── Dockerfile             # Production-optimized container
+│   ├── server.js              # Main server with Socket.io + health checks
+│   ├── routes/                # REST API endpoints  
+│   ├── middleware/            # File upload handling
+│   ├── utils/                 # Game state management
+│   └── uploads/               # Candidate photos
+├── frontend/                   # React + TailwindCSS ✅
+│   ├── Dockerfile             # Multi-stage build (Node.js → nginx)
+│   ├── nginx.conf             # Reverse proxy + WebSocket config
+│   ├── src/                   # React application with TestIO branding
+│   └── public/                # Static assets
+├── docker-compose.dev.yml      # Development environment
+├── docker-compose.prod.yml     # Production environment  
+├── docker-compose.demo.yml     # Competition demo environment
+├── justfile                   # Modern command runner (2025)
+├── PRPs/                      # Product Requirement Prompts
+├── WIREFRAMES.md              # UI design specifications
+└── CLAUDE.md                  # Development instructions
 ```
 
 ## 🎮 Game Flow
@@ -91,6 +99,24 @@ alckathon/
 3. **Real-time Voting**: Employees vote on which statement is the lie
 4. **Live Results**: Progress bars update in real-time as votes come in
 5. **Answer Reveal**: Admin reveals the correct answer
+
+## 🎬 Live Demo & Screenshots
+
+**📸 Visual Demo**: See [DEMO.md](./DEMO.md) for complete screenshot walkthrough
+
+**🚀 Interactive Demo**: Run the full demonstration:
+```bash
+./run-demo.sh         # Interactive demo menu
+./capture-demo-screenshots.sh  # Capture fresh screenshots
+```
+
+**Key Demo Features:**
+- ✅ Complete admin-to-results workflow
+- ✅ Vote hiding to prevent bias
+- ✅ Dark/light theme switching  
+- ✅ Real-time WebSocket updates
+- ✅ Celebration effects on reveal
+- ✅ Professional TestIO branding
 
 ## 🔧 API Endpoints
 
@@ -174,21 +200,66 @@ npm run type-check # TypeScript validation
 npm run test:e2e   # Playwright testing
 ```
 
-## 🐳 Docker Deployment
+## 🐳 Professional Docker Containerization
+
+Complete multi-environment Docker setup with nginx reverse proxy, WebSocket support, and production optimizations.
+
+### Quick Start with Docker
+
+**Competition Demo** (Recommended for judges):
+```bash
+just docker-demo          # Start demo on http://localhost:8080
+```
+
+**Development Environment** (Hot reload + Live coding):
+```bash
+just docker-dev            # Start with volume mounts for live development
+just docker-dev-logs       # View all container logs
+just docker-dev-logs backend  # View backend logs only
+```
+
+**Production Environment** (Optimized + Health checks):
+```bash
+just docker-prod           # Start production containers on port 80
+just docker-prod-logs      # View production logs
+```
+
+### Docker Compose Files
+
+- **`docker-compose.dev.yml`** - Development with hot reload, volume mounts, exposed ports
+- **`docker-compose.prod.yml`** - Production with health checks, restart policies, optimized builds
+- **`docker-compose.demo.yml`** - Competition demo on port 8080, fast startup, easy cleanup
+
+### Container Architecture
+
+- **Frontend Container**: Multi-stage build (Node.js → nginx) with React app and reverse proxy
+- **Backend Container**: Node.js + Express + Socket.io with non-root security
+- **nginx Reverse Proxy**: Handles static files, API routing, and WebSocket upgrades for Socket.io
+
+### Docker Utility Commands
 
 ```bash
-# Development
-docker-compose up --build
-
-# Production
-docker-compose -f docker-compose.prod.yml up --build
+just docker-build dev      # Build development images
+just docker-build prod     # Build production images
+just docker-clean          # Remove all containers, volumes, and images
+just docker-stop demo      # Stop demo environment
+just docker-restart prod   # Restart production containers
 ```
+
+### Features
+- ✅ **Cross-platform compatibility** (docker-compose vs docker compose)
+- ✅ **Multi-stage builds** for optimized container sizes
+- ✅ **nginx WebSocket proxy** preserving Socket.io real-time functionality
+- ✅ **Health checks** and automatic restart policies
+- ✅ **Volume persistence** for file uploads
+- ✅ **Professional security** (non-root users, Alpine images)
 
 ## 📚 Documentation
 
-- [Wireframes](./WIREFRAMES.md) - Complete UI design specifications
-- [Development Guide](./CLAUDE.md) - Detailed development instructions
-- [PRPs](./PRPs/) - Product Requirement Prompts and planning
+- **[DEMO.md](./DEMO.md)** - 🎬 Complete visual demo with screenshots
+- **[Wireframes](./WIREFRAMES.md)** - UI design specifications
+- **[Development Guide](./CLAUDE.md)** - Detailed development instructions
+- **[PRPs](./PRPs/)** - Product Requirement Prompts and planning
 
 ## 🏗️ Architecture
 

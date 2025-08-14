@@ -41,13 +41,13 @@ export const useGameSocket = (gameId, initialVotes = { 0: 0, 1: 0, 2: 0 }) => {
 
     socket.emit('join-game', { gameId });
 
-    socket.on('vote-update', (data) => {
+    socket.on('vote-update', data => {
       if (data.gameId === gameId) {
         setVotes(data.votes);
       }
     });
 
-    socket.on('answer-reveal', (data) => {
+    socket.on('answer-reveal', data => {
       if (data.gameId === gameId) {
         setRevealed(true);
         setCorrectAnswer(data.correctAnswer);
@@ -63,18 +63,19 @@ export const useGameSocket = (gameId, initialVotes = { 0: 0, 1: 0, 2: 0 }) => {
 
   const castVote = (vote, playerName = null) => {
     if (!socket || !connected) return;
-    
-    const sessionId = localStorage.getItem('sessionId') || 
-                     (() => {
-                       const id = crypto.randomUUID();
-                       localStorage.setItem('sessionId', id);
-                       return id;
-                     })();
+
+    const sessionId =
+      localStorage.getItem('sessionId') ||
+      (() => {
+        const id = crypto.randomUUID();
+        localStorage.setItem('sessionId', id);
+        return id;
+      })();
 
     socket.emit('cast-vote', { gameId, vote, sessionId, playerName });
   };
 
-  const revealAnswer = (adminSecret) => {
+  const revealAnswer = adminSecret => {
     if (!socket || !connected) return;
     socket.emit('reveal-answer', { gameId, adminSecret });
   };

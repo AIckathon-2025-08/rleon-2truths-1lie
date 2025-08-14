@@ -4,33 +4,33 @@ const PhotoUpload = ({ onPhotoSelect }) => {
   const [preview, setPreview] = useState(null);
   const [dragOver, setDragOver] = useState(false);
 
-  const handleFileSelect = (file) => {
+  const handleFileSelect = file => {
     if (file && file.type.startsWith('image/')) {
       const reader = new FileReader();
-      reader.onload = (e) => setPreview(e.target.result);
+      reader.onload = e => setPreview(e.target.result);
       reader.readAsDataURL(file);
       onPhotoSelect(file);
     }
   };
 
-  const handleDrop = (e) => {
+  const handleDrop = e => {
     e.preventDefault();
     setDragOver(false);
     const file = e.dataTransfer.files[0];
     handleFileSelect(file);
   };
 
-  const handleFileInput = (e) => {
+  const handleFileInput = e => {
     const file = e.target.files[0];
     handleFileSelect(file);
   };
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
+      <label htmlFor="candidate-photo" className="block text-sm font-medium text-gray-700 mb-2">
         Candidate Photo
       </label>
-      
+
       <div
         className={`relative border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
           dragOver
@@ -38,7 +38,10 @@ const PhotoUpload = ({ onPhotoSelect }) => {
             : 'border-gray-300 hover:border-testio-teal'
         }`}
         onDrop={handleDrop}
-        onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+        onDragOver={e => {
+          e.preventDefault();
+          setDragOver(true);
+        }}
         onDragLeave={() => setDragOver(false)}
       >
         {preview ? (
@@ -50,7 +53,10 @@ const PhotoUpload = ({ onPhotoSelect }) => {
             />
             <button
               type="button"
-              onClick={() => { setPreview(null); onPhotoSelect(null); }}
+              onClick={() => {
+                setPreview(null);
+                onPhotoSelect(null);
+              }}
               className="text-sm text-red-600 hover:text-red-800"
             >
               Remove Photo
@@ -65,13 +71,15 @@ const PhotoUpload = ({ onPhotoSelect }) => {
             </div>
           </div>
         )}
-        
+
         <input
+          id="candidate-photo"
           type="file"
           accept="image/*"
           onChange={handleFileInput}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           required={!preview}
+          aria-label="Upload candidate photo"
         />
       </div>
     </div>

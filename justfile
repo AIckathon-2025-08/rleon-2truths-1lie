@@ -129,3 +129,70 @@ pre-commit: check test
 # Production deployment check
 prod-check: check build test
     @echo "🚀 Production deployment ready!"
+
+# Docker Commands
+# ===============
+
+# Docker compatibility detection
+docker-command := if `command -v docker-compose >/dev/null 2>&1` == "0" { "docker-compose" } else { "docker compose" }
+
+# Development Environment
+docker-dev:
+    @echo "🐳 Starting development containers with hot reload..."
+    {{ docker-command }} -f docker-compose.dev.yml up --build
+
+docker-dev-logs service="":
+    @if [ -z "{{ service }}" ]; then \
+        {{ docker-command }} -f docker-compose.dev.yml logs -f; \
+    else \
+        {{ docker-command }} -f docker-compose.dev.yml logs -f {{ service }}; \
+    fi
+
+# Production Environment  
+docker-prod:
+    @echo "🚀 Starting production containers..."
+    {{ docker-command }} -f docker-compose.prod.yml up --build -d
+
+docker-prod-logs:
+    {{ docker-command }} -f docker-compose.prod.yml logs -f
+
+# Competition Demo
+docker-demo:
+    @echo "🏆 Starting competition demo..."
+    @echo "Demo will be available at http://localhost:8080"
+    {{ docker-command }} -f docker-compose.demo.yml up --build
+
+# Utility Commands
+docker-build env="prod":
+    @if [ "{{ env }}" = "dev" ]; then \
+        {{ docker-command }} -f docker-compose.dev.yml build; \
+    elif [ "{{ env }}" = "demo" ]; then \
+        {{ docker-command }} -f docker-compose.demo.yml build; \
+    else \
+        {{ docker-command }} -f docker-compose.prod.yml build; \
+    fi
+
+docker-clean:
+    @echo "🧹 Cleaning up Docker containers, volumes, and images..."
+    {{ docker-command }} -f docker-compose.dev.yml down --volumes --remove-orphans 2>/dev/null || true
+    {{ docker-command }} -f docker-compose.prod.yml down --volumes --remove-orphans 2>/dev/null || true
+    {{ docker-command }} -f docker-compose.demo.yml down --volumes --remove-orphans 2>/dev/null || true
+    docker system prune -f
+
+docker-restart env="dev":
+    @if [ "{{ env }}" = "prod" ]; then \
+        {{ docker-command }} -f docker-compose.prod.yml restart; \
+    elif [ "{{ env }}" = "demo" ]; then \
+        {{ docker-command }} -f docker-compose.demo.yml restart; \
+    else \
+        {{ docker-command }} -f docker-compose.dev.yml restart; \
+    fi
+
+docker-stop env="all":
+    @if [ "{{ env }}" = "all" ]; then \
+        {{ docker-command }} -f docker-compose.dev.yml down 2>/dev/null || true; \
+        {{ docker-command }} -f docker-compose.prod.yml down 2>/dev/null || true; \
+        {{ docker-command }} -f docker-compose.demo.yml down 2>/dev/null || true; \
+    else \
+        {{ docker-command }} -f docker-compose.{{ env }}.yml down; \
+    fi
