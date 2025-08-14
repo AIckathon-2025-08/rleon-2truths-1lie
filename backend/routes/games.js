@@ -18,7 +18,34 @@ router.post('/', upload.single('photo'), async (req, res) => {
       });
     }
 
-    const parsedStatements = JSON.parse(statements);
+    // Sanitize and validate name
+    const sanitizedName = name.trim();
+    if (sanitizedName.length === 0 || sanitizedName.length > 100) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Name must be between 1 and 100 characters' 
+      });
+    }
+
+    // Basic sanitization - remove potentially dangerous characters
+    const nameRegex = /^[a-zA-Z0-9\s\-\.'\u00C0-\u017F]+$/;
+    if (!nameRegex.test(sanitizedName)) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Name contains invalid characters' 
+      });
+    }
+
+    let parsedStatements;
+    try {
+      parsedStatements = JSON.parse(statements);
+    } catch (error) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Invalid JSON format for statements' 
+      });
+    }
+
     if (!Array.isArray(parsedStatements) || parsedStatements.length !== 3) {
       return res.status(400).json({ 
         success: false, 
@@ -26,9 +53,20 @@ router.post('/', upload.single('photo'), async (req, res) => {
       });
     }
 
+    // Validate that all statements are strings and not empty
+    const invalidStatements = parsedStatements.some(stmt => 
+      typeof stmt !== 'string' || stmt.trim().length === 0
+    );
+    if (invalidStatements) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'All statements must be non-empty strings' 
+      });
+    }
+
     const gameData = {
       candidate: {
-        name,
+        name: sanitizedName,
         photoPath: req.file ? req.file.filename : null
       },
       statements: parsedStatements,
@@ -37,11 +75,13 @@ router.post('/', upload.single('photo'), async (req, res) => {
 
     const game = createGame(gameData);
     
+    const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+    
     res.json({
       success: true,
       gameId: game.id,
-      votingUrl: `http://localhost:5173/vote/${game.id}`,
-      resultsUrl: `http://localhost:5173/results/${game.id}`,
+      votingUrl: `${frontendUrl}/vote/${game.id}`,
+      resultsUrl: `${frontendUrl}/results/${game.id}`,
       adminSecret: game.adminSecret
     });
   } catch (error) {
@@ -72,7 +112,7 @@ router.get('/:gameId', (req, res) => {
         candidate: {
           name: game.candidate.name,
           photoUrl: game.candidate.photoPath 
-            ? `http://localhost:3001/uploads/${game.candidate.photoPath}`
+            ? `${process.env.BACKEND_URL || "http://localhost:3001"}/uploads/${game.candidate.photoPath}`
             : null
         },
         statements: game.statements,

@@ -5,12 +5,16 @@ const cors = require('cors');
 const path = require('path');
 const gameRoutes = require('./routes/games');
 const { castVote, revealAnswer, getGame } = require('./utils/gameManager');
+const logger = require('./utils/logger');
+
+// Load environment variables
+require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL || "http://localhost:5173",
     credentials: true
   }
 });
@@ -25,21 +29,22 @@ app.use('/api/games', gameRoutes);
 
 // Socket.io connection handling
 io.on('connection', (socket) => {
-  console.log('Client connected:', socket.id);
+  logger.info('Client connected', { socketId: socket.id });
 
   socket.on('join-game', ({ gameId }) => {
     socket.join(gameId);
-    console.log(`Socket ${socket.id} joined game ${gameId}`);
+    logger.debug('Socket joined game', { socketId: socket.id, gameId });
   });
 
   socket.on('cast-vote', (data) => {
     const { gameId, vote, sessionId } = data;
     
-    console.log(`Vote received: gameId=${gameId}, vote=${vote}, sessionId=${sessionId}`);
+    logger.info('Vote received', { gameId, vote, sessionId, socketId: socket.id });
     
     const result = castVote(gameId, vote, sessionId);
     
     if (result.error) {
+      logger.warn('Vote casting failed', { gameId, sessionId, error: result.error });
       socket.emit('error', {
         error: result.error,
         code: result.error === 'Game not found' ? 'GAME_NOT_FOUND' : 
@@ -59,17 +64,18 @@ io.on('connection', (socket) => {
       totalVotes
     });
     
-    console.log(`Vote cast successfully: ${JSON.stringify(game.votes)}`);
+    logger.info('Vote cast successfully', { gameId, votes: game.votes, totalVotes });
   });
 
   socket.on('reveal-answer', (data) => {
     const { gameId, adminSecret } = data;
     
-    console.log(`Answer reveal requested: gameId=${gameId}`);
+    logger.info('Answer reveal requested', { gameId, socketId: socket.id });
     
     const result = revealAnswer(gameId, adminSecret);
     
     if (result.error) {
+      logger.warn('Answer reveal failed', { gameId, error: result.error });
       socket.emit('error', {
         error: result.error,
         code: result.error === 'Game not found' ? 'GAME_NOT_FOUND' : 'UNAUTHORIZED'
@@ -86,17 +92,21 @@ io.on('connection', (socket) => {
       finalVotes: game.votes
     });
     
-    console.log(`Answer revealed: ${result.correctAnswer}`);
+    logger.info('Answer revealed successfully', { gameId, correctAnswer: result.correctAnswer });
   });
 
   socket.on('disconnect', () => {
-    console.log('Client disconnected:', socket.id);
+    logger.info('Client disconnected', { socketId: socket.id });
   });
 });
 
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  logger.info('Server started successfully', { 
+    port: PORT, 
+    environment: process.env.NODE_ENV || 'development',
+    frontendUrl: process.env.FRONTEND_URL || 'http://localhost:5173'
+  });
 });
 
 module.exports = { app, io };
