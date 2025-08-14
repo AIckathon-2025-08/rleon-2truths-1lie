@@ -7,14 +7,14 @@ const AdminSetup = () => {
     name: '',
     photo: null,
     statements: ['', '', ''],
-    correctAnswer: 0
+    correctAnswer: 0,
   });
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
 
   const api = new VotingAPI();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
 
@@ -26,7 +26,7 @@ const AdminSetup = () => {
       formDataToSend.append('correctAnswer', formData.correctAnswer.toString());
 
       const response = await api.createGame(formDataToSend);
-      
+
       if (response.success) {
         setResult(response);
       } else {
@@ -50,27 +50,25 @@ const AdminSetup = () => {
     return (
       <div className="max-w-2xl mx-auto">
         <div className="card">
-          <h2 className="text-2xl font-bold text-testio-blue mb-6">Game Created Successfully!</h2>
-          
+          <h2 className="text-2xl font-bold text-testio-blue mb-6">
+            Game Created Successfully!
+          </h2>
+
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Voting URL (Share with employees):
               </label>
-              <div className="input-field bg-gray-50">
-                {result.votingUrl}
-              </div>
+              <div className="input-field bg-gray-50">{result.votingUrl}</div>
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Results URL (For live tracking):
               </label>
-              <div className="input-field bg-gray-50">
-                {result.resultsUrl}
-              </div>
+              <div className="input-field bg-gray-50">{result.resultsUrl}</div>
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Admin Secret (Save this to reveal answer):
@@ -80,9 +78,17 @@ const AdminSetup = () => {
               </div>
             </div>
           </div>
-          
-          <button 
-            onClick={() => {setResult(null); setFormData({name: '', photo: null, statements: ['','',''], correctAnswer: 0});}}
+
+          <button
+            onClick={() => {
+              setResult(null);
+              setFormData({
+                name: '',
+                photo: null,
+                statements: ['', '', ''],
+                correctAnswer: 0,
+              });
+            }}
             className="btn-secondary mt-6"
           >
             Create Another Game
@@ -95,24 +101,27 @@ const AdminSetup = () => {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="card">
-        <h2 className="text-2xl font-bold text-testio-blue mb-6">Create New Game</h2>
-        
+        <h2 className="text-2xl font-bold text-testio-blue mb-6">
+          Create New Game
+        </h2>
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="candidate-name" className="block text-sm font-medium text-gray-700 mb-2">
               Candidate Name
             </label>
             <input
+              id="candidate-name"
               type="text"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={e => setFormData({ ...formData, name: e.target.value })}
               className="input-field w-full"
               required
             />
           </div>
 
-          <PhotoUpload 
-            onPhotoSelect={(photo) => setFormData({ ...formData, photo })}
+          <PhotoUpload
+            onPhotoSelect={photo => setFormData({ ...formData, photo })}
           />
 
           <div>
@@ -123,17 +132,22 @@ const AdminSetup = () => {
               <div key={index} className="mb-3">
                 <div className="flex items-center space-x-3">
                   <input
+                    id={`lie-option-${index}`}
                     type="radio"
                     name="correctAnswer"
                     checked={formData.correctAnswer === index}
-                    onChange={() => setFormData({ ...formData, correctAnswer: index })}
+                    onChange={() =>
+                      setFormData({ ...formData, correctAnswer: index })
+                    }
                     className="text-testio-blue"
                   />
-                  <label className="text-sm text-gray-600">This is the lie</label>
+                  <label htmlFor={`lie-option-${index}`} className="text-sm text-gray-600">
+                    This is the lie
+                  </label>
                 </div>
                 <textarea
                   value={statement}
-                  onChange={(e) => updateStatement(index, e.target.value)}
+                  onChange={e => updateStatement(index, e.target.value)}
                   className="input-field w-full mt-1"
                   rows="2"
                   placeholder={`Statement ${index + 1}...`}
@@ -145,7 +159,12 @@ const AdminSetup = () => {
 
           <button
             type="submit"
-            disabled={loading || !formData.photo || !formData.name || formData.statements.some(s => !s.trim())}
+            disabled={
+              loading ||
+              !formData.photo ||
+              !formData.name ||
+              formData.statements.some(s => !s.trim())
+            }
             className="btn-primary w-full disabled:opacity-50"
           >
             {loading ? 'Creating Game...' : 'Create Game'}

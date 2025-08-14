@@ -14,7 +14,7 @@ function createGame(gameData) {
     revealed: false,
     adminSecret: uuidv4(),
     createdAt: new Date(),
-    votedSessions: new Set()
+    votedSessions: new Set(),
   };
 
   games.set(game.id, game);
@@ -39,7 +39,7 @@ function castVote(gameId, vote, sessionId) {
 
   game.votes[vote]++;
   game.votedSessions.add(sessionId);
-  
+
   return { success: true, votes: game.votes };
 }
 
@@ -61,5 +61,5 @@ module.exports = {
   castVote,
   revealAnswer,
   games,
-  sessions
+  sessions,
 };

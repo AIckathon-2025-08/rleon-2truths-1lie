@@ -42,11 +42,17 @@ Comprehensive research conducted on TestIO design system integration and animati
 - **Storage Integration**: Theme persistence alongside existing localStorage patterns
 
 ### Architectural Scope Assessment
-**Complex Feature Classification** - 19+ files affected:
-- 8 new animation/theme components
-- 4 enhanced existing components  
-- 4 infrastructure files (theme, CSS, backend)
-- 3+ integration utilities and enhanced Socket.io events
+**Moderate Feature Classification** - 8-10 files affected (KISS-optimized):
+- 4 new theme/celebration components (simplified from 8)
+- 3 enhanced existing components  
+- 2 infrastructure files (CSS + optional backend)
+- 1 integration utility file
+
+**DECOMPOSITION**: This PRP has been broken into parallel track files for maximum efficiency:
+- [`001a_track-theme-system.md`](./001a_track-theme-system.md) - Independent theme development
+- [`001b_track-celebration-system.md`](./001b_track-celebration-system.md) - Independent celebration development  
+- [`001c_track-integration.md`](./001c_track-integration.md) - Integration of both systems
+- [`README.md`](./README.md) - Track overview and execution guide
 
 ## Implementation Specification
 
@@ -71,55 +77,48 @@ Keep the fun and quirky elements that will wow judges, but implement them simply
 
 ### Parallel Implementation Strategy (KISS + Parallel Work)
 
-**🚀 PARALLEL WORK OPPORTUNITIES**:
+**🚀 DECOMPOSED INTO DEDICATED TRACK FILES**:
 
-#### **Track A: Theme System** (3-4 hours) - **Can work independently**
-- `frontend/src/hooks/useTheme.js` - Simple theme toggle hook
-- `frontend/src/components/ThemeToggle.jsx` - Basic dark/light switch  
-- `frontend/src/index.css` - Add dark mode CSS variables
+This PRP has been decomposed into independent track files for maximum parallel efficiency:
 
-**Simple Implementation**:
-```css
-/* Just extend existing variables with dark variants */
-.dark {
-  --color-testio-blue: #3b82f6;
-  --color-testio-teal: #06b6d4; 
-  --color-background: #1e293b;
-  --color-surface: #334155;
-}
+#### **Track A: Theme System** (3-4 hours) - **Independent Development**
+📄 **Detailed PRP**: [`001a_track-theme-system.md`](./001a_track-theme-system.md)
+- Complete dark mode implementation with TestIO branding
+- Simple CSS variables + localStorage approach
+- No dependencies on other tracks
+- **Execute**: `/execute-prp @PRPs/2-prps/quirk/001a_track-theme-system.md`
+
+#### **Track B: Celebration System** (3-4 hours) - **Independent Development** 
+📄 **Detailed PRP**: [`001b_track-celebration-system.md`](./001b_track-celebration-system.md)
+- Confetti, avatars, sound effects, and winner badges
+- Self-contained components using `react-confetti` + DiceBear API
+- No dependencies on other tracks
+- **Execute**: `/execute-prp @PRPs/2-prps/quirk/001b_track-celebration-system.md`
+
+#### **Track C: Integration** (2-4 hours) - **Requires A + B Completion**
+📄 **Detailed PRP**: [`001c_track-integration.md`](./001c_track-integration.md)
+- Integrate theme system and celebrations into existing components
+- Minimal changes to preserve real-time voting functionality
+- **Dependencies**: Requires completed Track A + Track B components
+- **Execute**: `/execute-prp @PRPs/2-prps/quirk/001c_track-integration.md`
+
+#### **Track Overview & Coordination**
+📄 **Execution Guide**: [`README.md`](./README.md)
+- Complete parallel development strategy
+- Timeline and coordination instructions
+- Success criteria and testing approach
+
+**PARALLEL EXECUTION PLAN**:
 ```
-
-#### **Track B: Celebration System** (3-4 hours) - **Can work independently** 
-- `frontend/src/components/CelebrationEffect.jsx` - Single component using `react-confetti`
-- `frontend/src/components/PlayerAvatar.jsx` - Simple DiceBear API integration
-- `frontend/src/components/SoundEffect.jsx` - Single victory sound
-
-**Simple Implementation**:
-```jsx
-// One-file celebration system
-const CelebrationEffect = ({ winners, onComplete }) => {
-  return (
-    <>
-      <Confetti numberOfPieces={100} recycle={false} />
-      {winners.map(winner => (
-        <div key={winner.id} className="winner-badge animate-bounce">
-          🏆 {winner.name}
-        </div>
-      ))}
-    </>
-  );
-};
+Day 1 Morning:  Track A + Track B (parallel development)
+Day 1 Afternoon: Track C (integration)
+Day 2:          Testing & polish
 ```
-
-#### **Track C: Integration** (2-4 hours) - **Requires both A & B**
-- Enhanced `VotingInterface.jsx` - Add theme toggle + avatars
-- Enhanced `LiveResults.jsx` - Add celebration trigger
-- Simple backend winner detection in existing Socket.io events
 
 **SEQUENTIAL DEPENDENCIES**:
 - Track A & B can run in parallel ⚡
 - Track C requires both A & B completed
-- Total parallel time: **4 hours** vs sequential: **8+ hours**
+- Total parallel time: **4-6 hours** vs sequential: **8-12 hours**
 
 ### Integration Requirements
 

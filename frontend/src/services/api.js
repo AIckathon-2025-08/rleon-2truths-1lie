@@ -6,7 +6,7 @@ class VotingAPI {
   async createGame(formData) {
     const response = await fetch(`${this.baseURL}/games`, {
       method: 'POST',
-      body: formData
+      body: formData,
     });
     return response.json();
   }

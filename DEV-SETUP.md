@@ -50,8 +50,17 @@ just dev
 - `just clean` - Clean build artifacts
 - `just setup` - Initial project setup
 
+### 🐳 Docker Commands
+- `just docker-demo` - Competition demo on port 8080
+- `just docker-dev` - Development with hot reload
+- `just docker-prod` - Production environment
+- `just docker-build dev` - Build development images
+- `just docker-clean` - Clean up all containers/volumes
+- `just docker-stop demo` - Stop demo environment
+
 ### 🏆 Competition Commands
 - `just demo` - Quick demo setup for judges
+- `just docker-demo` - Containerized demo (impressive!)
 - `just pre-commit` - Run before committing
 - `just prod-check` - Production readiness check
 
